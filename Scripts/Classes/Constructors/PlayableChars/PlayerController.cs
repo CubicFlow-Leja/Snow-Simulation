@@ -17,6 +17,7 @@ public class PlayerController : AbstractController
     }
     private void Start()
     {
+        Cursor.visible = false;
         Init();
     }
 
