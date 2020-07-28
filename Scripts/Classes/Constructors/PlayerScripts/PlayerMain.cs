@@ -6,11 +6,6 @@ public class PlayerMain  : PlayerClass
 {
     override public void Movement(Vector3 movedir,float _TargetSpeed)
     {
-        if (!StaminaBeingDrained)
-            RegenerateStamina();
-        else
-            DrainStamina();
-
         if (movedir.magnitude != 0.0f)
         {
             WallVector = PlayerController.GetComponent<AbstractPawn>().ReturnWallInfluenceVector();

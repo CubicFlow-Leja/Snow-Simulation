@@ -134,6 +134,7 @@
 				Tags {"Queue" = "Geometry+10"  }
 
 					Cull Off
+					ZWrite Off
 					CGPROGRAM
 
 					#include "UnityCG.cginc"

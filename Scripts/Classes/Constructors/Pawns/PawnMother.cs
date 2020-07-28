@@ -46,7 +46,11 @@ public class PawnMother : AbstractPawn
     }
 
 
-
+    public void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.rigidbody != null)
+            hit.rigidbody.AddForce(((hit.transform.position - this.transform.position).normalized+Vector3.up)*52.0f);
+    }
 
     ///// <summary>
     ///// //GIZMO

@@ -7,20 +7,14 @@ public abstract class PlayerActionHolder
     public virtual void RClick(PlayerClass p)
     {
         p._Parent.StopPlayerInputs();
-
-        p.StaminaDrained = true;
-        p._Parent._TargetSpeed = Mathf.Lerp(2.0f, 5.0f, p._Stamina / p._MaxStamina);
-       // p._Parent._TargetSpeed = 5.0f;
+        p._Parent._TargetSpeed = 5.0f;
         _WaitForKeyUp(p, KeyCode.Mouse1, RClickPressed, RClickReleased);
     }
     public virtual void RClickPressed(PlayerClass p)
-    {
-        p._Parent._TargetSpeed = Mathf.Lerp(2.0f, 5.0f, p._Stamina / p._MaxStamina);
-    }
+    { }
 
     public virtual void RClickReleased(PlayerClass p)
     {
-        p.StaminaDrained = false;
         p._Parent.ResetPlayerInputs();
         p._Parent._TargetSpeed = 1.0f; 
 

@@ -36,8 +36,8 @@ MonoBehaviour:
       fxaaSettings:
         preset: 0
       taaSettings:
-        jitterSpread: 0.1
-        sharpen: 0
+        jitterSpread: 0.7
+        sharpen: 1.75
         stationaryBlending: 0.9
         motionBlending: 0.9
   ambientOcclusion:
@@ -72,17 +72,17 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 0
     m_Settings:
-      focusDistance: 324.22
-      aperture: 0.1
+      focusDistance: 286
+      aperture: 4.1
       focalLength: 1
       useCameraFov: 1
       kernelSize: 0
   motionBlur:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       shutterAngle: 12
       sampleCount: 32
-      frameBlending: 1
+      frameBlending: 0.088
   eyeAdaptation:
     m_Enabled: 0
     m_Settings:
@@ -122,7 +122,7 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0
-        temperature: -15
+        temperature: 0
         tint: 0
         hueShift: 0
         saturation: 0.48
@@ -330,7 +330,7 @@ MonoBehaviour:
       opacity: 1
       rounded: 0
   dithering:
-    m_Enabled: 1
+    m_Enabled: 0
   monitors:
     currentMonitorID: 0
     refreshOnPlay: 0

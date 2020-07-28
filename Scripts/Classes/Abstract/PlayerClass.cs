@@ -62,47 +62,5 @@ public abstract class PlayerClass
     
     public abstract void Movement(Vector3 MoveDir,float _TargetSpeed);
 
-
-
-
-    protected private float Stamina = 10.0f;
-    protected private float MaxStamina = 10.0f;
-    protected private float StamRegen = 1.0f;
-    protected private float StamDrain = 0.5f;
-
-    protected private bool StaminaBeingDrained = false;
-
-    public bool StaminaDrained
-    {
-        set { StaminaBeingDrained = value; }
-        get { return StaminaBeingDrained; }
-    }
-
-
-    public float _Stamina
-    {
-        set { Stamina = value; }
-        get { return Stamina; }
-    }
-
-    public float _MaxStamina
-    {
-        set { MaxStamina = value; }
-        get { return MaxStamina; }
-    }
-
-    public virtual void RegenerateStamina()
-    {
-        Stamina += StamRegen * Time.deltaTime;
-        if (Stamina > MaxStamina)
-            Stamina = MaxStamina;
-    }
-
-    public virtual void DrainStamina()
-    {
-        Stamina -= StamDrain * Time.deltaTime;
-        if (Stamina < 0.0f)
-            Stamina = 0.0f;
-    }
-
+    
 }

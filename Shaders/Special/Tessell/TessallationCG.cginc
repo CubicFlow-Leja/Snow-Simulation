@@ -7,23 +7,6 @@
 
 float TessellationEdgeFactor(TessellationControlPoint cp0, TessellationControlPoint cp1)
 {
-	//edge based world space
-	/*float3 p0 = mul(unity_ObjectToWorld, float4(cp0.vertex.xyz, 1)).xyz;
-	float3 p1 = mul(unity_ObjectToWorld, float4(cp1.vertex.xyz, 1)).xyz;
-	float edgeLength = distance(p0, p1);
-	return edgeLength / _TessellationEdgeLength;
-*/
-
-	//edge based screen space
-	//float4 p0 = UnityObjectToClipPos(cp0.vertex);
-	//float4 p1 = UnityObjectToClipPos(cp1.vertex);
-	//float edgeLength = distance(p0.xy / p0.w, p1.xy / p1.w);
-	////return edgeLength / _TessellationEdgeLength;
-	//return edgeLength * _ScreenParams.y / _TessellationEdgeLength;
-
-
-
-	//world space ali view distance uracunat
 	float3 p0 = mul(unity_ObjectToWorld, float4(cp0.vertex.xyz, 1)).xyz;
 	float3 p1 = mul(unity_ObjectToWorld, float4(cp1.vertex.xyz, 1)).xyz;
 	float edgeLength = distance(p0, p1);
@@ -31,15 +14,9 @@ float TessellationEdgeFactor(TessellationControlPoint cp0, TessellationControlPo
 	float3 edgeCenter = (p0 + p1) * 0.5;
 	float viewDistance = distance(edgeCenter, _WorldSpaceCameraPos);
 
-	//return edgeLength / (_TessellationEdgeLength * viewDistance);
 	return edgeLength * _ScreenParams.y / (_TessellationEdgeLength * viewDistance);
-
-	//uniform
-	//return _TessellationUniform;
 }
 
-
-//prvi vert fun jer nebi triba nista radit pa samo prosliejdi
 TessellationControlPoint Vert(VertexData v) {
 	TessellationControlPoint p; 
 
@@ -60,8 +37,6 @@ TessellationControlPoint Vert(VertexData v) {
 }
 
 
-
-//prima patch i seta svakome faktor na 1 , znaci bez splittanja zasad
 TessellationFactors PatchConstFun(InputPatch<TessellationControlPoint, 3> patch) {
 	TessellationFactors f;
 	f.edge[0] = TessellationEdgeFactor(patch[1], patch[2]);
@@ -73,11 +48,11 @@ TessellationFactors PatchConstFun(InputPatch<TessellationControlPoint, 3> patch)
 
 
 //hull shader
-[UNITY_domain("tri")]									//triangle
-[UNITY_outputcontrolpoints(3)]							//mora znat da ima 3 kontrol pointa za svaki tris
-[UNITY_outputtopology("triangle_cw")]					//outputa ih  clockwise
-[UNITY_partitioning("fractional_odd")]						//partitioning mode za patcheve
-[UNITY_patchconstantfunc("PatchConstFun")]				//mora zna u koliko komada da ga kida, triba imat f-ju "PatchConstFun", ona se runna per patch ne per control point, zato je "constfun"
+[UNITY_domain("tri")]									
+[UNITY_outputcontrolpoints(3)]							
+[UNITY_outputtopology("triangle_cw")]					
+[UNITY_partitioning("fractional_odd")]						
+[UNITY_patchconstantfunc("PatchConstFun")]				
 TessellationControlPoint Hull(InputPatch<TessellationControlPoint,3> patch, uint id : SV_OutputControlPointID)
 {
 	return patch[id];
@@ -90,9 +65,9 @@ InterpolatorsVertex MyVertexProgram(VertexData v) {
 	i.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
 	float displacement = tex2Dlod(_Displacement, float4(i.uv.xy, 0, 0)).r;
+	displacement += (tex2Dlod(_BumpMap, float4(i.uv.xy*_BumpUVFactor, 0, 0)).r*2-1)*_BumpFactor;
 	v.vertex.y += displacement* _DisplacementFac;
-	/*v.normal = normalize(v.normal);
-	v.vertex.xyz += v.normal * displacement*_DisplacementFac;*/
+
 
 	
 	i.pos = UnityObjectToClipPos(v.vertex);
@@ -112,10 +87,6 @@ InterpolatorsVertex MyVertexProgram(VertexData v) {
 InterpolatorsVertex  Domain( TessellationFactors factors, OutputPatch<TessellationControlPoint, 3> patch, float3 barycentricCoordinates : SV_DomainLocation)
 {
 	VertexData data;
-	//	data.vertex =
-	//		patch[0].vertex * barycentricCoordinates.x +
-	//		patch[1].vertex * barycentricCoordinates.y +
-	//		patch[2].vertex * barycentricCoordinates.z;
 
 		#define MY_DOMAIN_PROGRAM_INTERPOLATE(fieldName) data.fieldName = \
 		patch[0].fieldName * barycentricCoordinates.x + \
@@ -143,11 +114,13 @@ float4 Frag(Interpolators i) : SV_TARGET{
 
 #if !defined (SHADOWPASS)
 fixed4 col = lerp(_ColorDeformed,_ColorFresh , i.Deformed);
-// i.Deformed;
 #else
 fixed4 col = _ColorFresh;
 #endif
-	return tex2D(_MainTex, i.uv)*col *Param;
+	fixed4 Col = tex2D(_MainTex, i.uv)*col *Param;
+	Col += (tex2D(_SparkleNoise, i.uv*_SparkleUVFactor).r > 0.5) ? _SparkleFactor * _SparkleCol : 0.0;
+
+	return Col;
 }
 
 

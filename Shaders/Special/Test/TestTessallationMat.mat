@@ -20,9 +20,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 6a7b43cf1fa623c4ba71f7468db4e543, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 1, y: 1}
     - _DetailAlbedoMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 46d92756c2ad62843941c96f29eca142, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -71,8 +71,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SparkleNoise:
+        m_Texture: {fileID: 2800000, guid: 1acb65c617e33da4aad92ea22dc861c8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _BumpFactor: 0.06
     - _BumpScale: 1
+    - _BumpUVFactor: 5
     - _Cutoff: 0.5
     - _DetailBumpScale: 1
     - _DetailNormalMapScale: 1
@@ -88,9 +94,11 @@ Material:
     - _ParallaxStrength: 0
     - _Smoothness: 0.1
     - _SmoothnessTextureChannel: 0
+    - _SparkleFactor: 0.0297
+    - _SparkleUVFactor: 125
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TessellationEdgeLength: 15
+    - _TessellationEdgeLength: 10
     - _TessellationUniform: 13.2
     - _UVSec: 0
     - _WireframeSmoothing: 1
@@ -98,8 +106,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.33962262, g: 0.2675329, b: 0.2675329, a: 1}
-    - _ColorDeformed: {r: 0.044855822, g: 0.14281556, b: 0.1509434, a: 1}
-    - _ColorFresh: {r: 0.46858314, g: 0.509434, b: 0.509434, a: 1}
+    - _ColorDeformed: {r: 0.042497326, g: 0.046800923, b: 0.047169805, a: 1}
+    - _ColorFresh: {r: 0.45585614, g: 0.49056602, b: 0.49056602, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SparkleCol: {r: 0.96510947, g: 0.8915094, b: 1, a: 1}
     - _WireframeColor: {r: 0, g: 0, b: 0, a: 1}

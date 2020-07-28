@@ -2,23 +2,14 @@
 #pragma kernel SnowCalculus
 
 
-//int PositionsCount;
-//half4 Positions[50];
 
-
-half Radius;
 float SnowDeform;
 float SnowFix;
 
-//
-//
-half TexWidth;
-half TexHeight;
-//half TerrainSize;
 
 sampler2D Input;
 RWTexture2D<float4> Result;
-RWTexture2D<float4> ResultTemp;
+Texture2D<float4> ResultTemp;
 RWTexture2D<float4> DeformationTemp;
 
 
@@ -26,60 +17,26 @@ RWTexture2D<float4> DeformationTemp;
 void FlashInput(uint3 id : SV_DispatchThreadID)
 {
 	Result[id.xy] = half4(1, 0, 0, 0);
-	ResultTemp[id.xy] = half4(1, 0, 0, 0);
 	DeformationTemp[id.xy] = half4(1, 0,0, 0);
 }
 
 [numthreads(8, 8, 1)]
 void SnowCalculus(uint3 id : SV_DispatchThreadID)
 {
-	////Vitar
-	//DeformationTemp[id.xy] = DeformationTemp[int2((id.x+5 ) % TexWidth, (id.y+5 ) % TexHeight)];
-
-
-	//pozicija pixela od 0-1 
-	//half3 TempPosVector = half3(id.x / TexWidth, 1, id.y / TexHeight);
+	//DeformationTemp[id.xy] = DeformationTemp[id.xy+half2(1,1)];sand
 
 	half4 Depth = ResultTemp[id.yx];
 
 	if(Depth.r<=0.01f)
 		DeformationTemp[id.xy] = lerp(DeformationTemp[id.xy], half4(1, 0, 0, 0), SnowFix);
 	else
-		DeformationTemp[id.xy] = lerp(DeformationTemp[id.xy], (half4(1, 0, 0, 0) - 3*ResultTemp[id.yx]), SnowDeform);
+		DeformationTemp[id.xy] = lerp(DeformationTemp[id.xy], (half4(1, 0, 0, 0) - ResultTemp[id.yx]), SnowDeform);
+
+
+
 	
-	//za svaki objekt
-
-
-	//for (int i = 0; i < PositionsCount; i++)
-	//{
-	//	half3 TempPos = half3((Positions[i].x + TerrainSize / 2) / TerrainSize, 1, (Positions[i].z + TerrainSize / 2) / TerrainSize);
-
-	//	half Dist = length(TempPos - TempPosVector);
-	//	//half RadiusFactor = 1+ /( Width/16);
-
-	//	if (Dist < Radius)/**Positions[i].w / (TerrainSize / 2))*/
-	//		DeformationTemp[id.xy] = lerp(DeformationTemp[id.xy], half4(0, 0, 0, 0), SnowDeform);
-	//	else
-	//		DeformationTemp[id.xy] = lerp(DeformationTemp[id.xy], half4(1, 1, 1, 0), SnowFix);
-
-	//}
-
-
-
-	//half4 MainMap = lerp(DeformationTemp[id.xy], ResultTemp[id.xy], WindFactor);
-
-
-	//Result[id.xy] = normalize(lerp(Result[id.xy], MainMap, GrassSpringFactor));
 	Result[id.xy] = DeformationTemp[id.xy];
 
 
 
-	//half3 TempPosVector = half3(id.x / TexWidth, 1, id.y / TexHeight);
-
-	//half3 TempPos = half3((TestPos.x + WorldSizeX / 2) / WorldSizeX, 1, (TestPos.z + WorldSizeZ / 2) / WorldSizeZ);
-	//half Dist = length(TempPos - TempPosVector)*(0.9 + 0.05*sin(id.x - id.y) + 0.05*cos(id.x + id.y));
-
-	//BloodTex[id.xy] = (Dist < Radius) ? (lerp(BloodTex[id.xy], lerp(MiddleColor, RimColor, (Dist / Radius)*Dist / Radius), AppearFactor)) : lerp(BloodTex[id.xy], half4(0, 0, 0, 0), FadeFactor);
-
-	//Result[id.xy] = BloodTex[id.xy];
 }

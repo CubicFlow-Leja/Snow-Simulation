@@ -5,10 +5,10 @@
 	float2 barycentricCoordinates : TEXCOORD9;
 
 
-//float _TessellationUniform;
 float _TessellationEdgeLength;
 fixed4 _ColorFresh;
 fixed4 _ColorDeformed;
+fixed4 _SparkleCol;
 
 half4 _Pos;
 half _Radius;
@@ -21,11 +21,34 @@ half _Intensity;
 	float4 _MainTex_ST;
 #endif
 
+#if !defined (BumpMap)
+#define BumpMap
+	sampler2D _BumpMap;
+	float4 _BumpMap_ST;
+#endif
+
+#if !defined (SparkleNoise)
+#define SparkleNoise
+	sampler2D _SparkleNoise;
+	float4 _SparkleNoise_ST;
+#endif
 
 
-sampler2D _Displacement;
-float4 _Displacement_ST;
+#if !defined (Displacement)
+#define Displacement
+	sampler2D _Displacement;
+	float4 _Displacement_ST;
+#endif
+
+//
+//sampler2D _Displacement;
+//float4 _Displacement_ST;
 float _DisplacementFac;
+float _BumpUVFactor;
+float _BumpFactor;
+
+float _SparkleUVFactor;
+float _SparkleFactor;
 
 
 
@@ -63,8 +86,8 @@ struct TessellationControlPoint {
 
 struct TessellationFactors 
 {
-	float edge[3] : SV_TessFactor;			 //faktori za svaki edge
-	float inside : SV_InsideTessFactor;		 //faktor za centar trisa
+	float edge[3] : SV_TessFactor;			 
+	float inside : SV_InsideTessFactor;		 
 };
 
 
