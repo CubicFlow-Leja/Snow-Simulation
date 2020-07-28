@@ -18013,7 +18013,7 @@ MonoBehaviour:
   HandBehindCharFactor2: -0.5
   mask:
     serializedVersion: 2
-    m_Bits: 167936
+    m_Bits: 512
   HeadTarget: {fileID: 7615833333266904955}
   CapsuleRadius: 0.6
   CapsuleHeight: 1.6
