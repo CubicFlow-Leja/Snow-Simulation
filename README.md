@@ -13,12 +13,18 @@ Custom Dynamic snow
 ***Character has full IK support and interacts with the enviroment if the layers have been set correctly.
 The IK parameters haven't been fine tweaked .(Fine tweaking is recommended)
 
-*** Some optimizations should be done since the entire project is in a beta state.
+***Some optimizations should be done since the entire project is in a beta state.
 
 ***To test the project just import everything into your "Assets" folder and run the "TestScene"
+WASD-Movement
+RMOUSE-RUN
 
 
 ***Edit:Disable Snapping for "Horizontal" and "Vertical" axes in input manager.
+
+
+***There are no lights inside the scene since points lights can't cast realtime shadows.
+The lighting system is completely custom and supports a single point light . Shadows are done via geometry shaders by extruding meshes allong the light direction.
 
 
 
