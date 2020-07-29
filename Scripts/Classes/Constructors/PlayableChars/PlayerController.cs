@@ -17,7 +17,6 @@ public class PlayerController : AbstractController
     }
     private void Start()
     {
-        Cursor.visible = false;
         Init();
     }
 
@@ -55,6 +54,7 @@ public class PlayerController : AbstractController
 
     void Update()
     {
+
         Inputs();
     }
 
