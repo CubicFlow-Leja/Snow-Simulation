@@ -37,13 +37,13 @@ public class StatsDisplay : MonoBehaviour
 
 
         StatString = "";
-        DeltaTime += (Time.unscaledDeltaTime - DeltaTime) * 0.1f;
-        float msec = DeltaTime * 1000.0f;
-        float fps = 1.0f / DeltaTime;
+        //DeltaTime += (Time.unscaledDeltaTime - DeltaTime) * 0.1f;
+        //float msec = DeltaTime * 1000.0f;
+        //float fps = 1.0f / DeltaTime;
 
-        StatString += "Fps: " + fps + "\n";
+        //StatString += "Fps: " + fps + "\n";
 
-        StatString += "Poly Count => Above 2 mil  \n\n";
+        StatString += "Poly Count => Above 2 mil  \n";
 
         StatString += "VSync -->" + ToggleVSync + "\n\n";
 
